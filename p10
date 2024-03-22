@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <script 
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></s
+cript>
+</head>
+<body ng-app='myapp'>
+ <div ng-controller="myctrl">
+ <h1>item collection </h1>
+ <ul>
+ <li ng-repeat="item in items">{{item.name}}
+ <button ng-click="removeitem(item)">remove</button> 
+ </li>
+ </ul>
+ <div>
+ <label>new item:</label>
+ <input type="text" ng-model="newitemname">
+ <button ng-click="additem()">add</button>
+ </div>
+ </div>
+ <script src="script.js"></script>
+</body>
+</html>
+var app = angular.module('myapp', []);
+app.controller('myctrl', function ($scope) {
+ $scope.items = [
+ { name: 'apple' },
+ { name: 'banana' },
+ { name: 'bread' }
+ ];
+ $scope.newitemname = '';
+ $scope.additem = function () {
+ if ($scope.newitemname) {
+ $scope.items.push({ name: $scope.newitemname });
+ $scope.newitemname = '';
+ }
+ };
+ $scope.removeitem = function (item) {
+ var index = $scope.items.indexOf(item);
+ if (index !== -1) {
+ $scope.items.splice(index, 1);
+ }
+ };
+});
