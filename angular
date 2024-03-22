@@ -1,0 +1,35 @@
+program 12
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  </head>
+  <body ng-app="myapp">
+    <div ng-controller="myctrl">
+      <label>date format:</label>
+      <select ng-model="selectedformat" ng-change="updateDate()">
+        <option value="fullDate">full date</option>
+        <option value="shortDate">short date</option>
+         <option value="mediumTime">medium time</option>
+         <option value="shortTime">short time</option>
+         <option value="yyyy-MM-dd HH:mm:ss">custom Format(yyyy-mm-ss HH:mm:ss)</option>
+      </select>
+        <p> selected format:{{selectedformat}}</p>
+        <p>formatted date:{{formatteddate}}</p>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
+var app=angular.module("myapp",[]);
+app.controller("myctrl",function($scope,$filter){
+  $scope.selectedformat='fullDate';
+  $scope.updatedate=function(){
+    var currentdate= new Date();
+    $scope.formatteddate=$filter('date')(currentdate,$scope.selectedformat);
+  };
+  $scope.updatedate();
+  
+});
+     
+        
