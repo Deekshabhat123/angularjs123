@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="userApp">
+ <head>
+ <title>Angular JS CRUD applictaion users</title>
+ </head>
+ <body ng-controller="userCtrl">
+ <script type="text/javascript" 
+src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js">
+ </script>
+ <h1>User Management</h1>
+ <table border="1">
+ <thead>
+ <tr>
+ <th>Name</th>
+ <th>Email</th>
+ <th>Actions</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr ng-repeat="user in users">
+ <td>{{user.name}}</td>
+ <td>{{user.email}}</td>
+ <td>
+ <button ng-click="edituser(user)">Edit</button>
+ <button ng-click="deleteuser(user)">Delete</button>
+ </td> 
+ </tr>
+ </tbody>
+ </table>
+ <hr>
+ <h2>Create User</h2>
+ <input type="text"ng-model="newuser.name"placeholder="Name">
+ <input type="email"ng-model="newuser.email"placeholder="Email">
+ <button ng-click="createuser()">Create</button>
+ <hr>
+ <h2>Edit User</h2>
+ <input type="text"ng-model="editeduser.name"placeholder="Name">
+ <input type="email"ng-model="editeduser.email"placeholder="Email">
+ <button ng-click="updateuser()">Update</button>
+ <script src="prg7.js"></script>
+ </body>
+</html>
+angular.module('userApp',[]).controller('userCtrl',function($scope){
+ $scope.users=[
+ {name:'abcd',email:'abcd@gmail.com'},
+ {name:'trainee',email:'trainee@yahoo.com'}
+ ];
+ $scope.newuser={};
+ $scope.createuser=function(){
+ $scope.users.push($scope.newuser);
+ $scope.newuser={};
+ };
+ $scope.edituser=function(user){
+ $scope.editeduser=user;
+ };
+ $scope.updateuser=function(){
+ $scope.editeduser={};
+ };
+ $scope.deleteuser=function(user){
+ $scope.users.splice($scope.users.indexOf(user),1)
+ };
+});
